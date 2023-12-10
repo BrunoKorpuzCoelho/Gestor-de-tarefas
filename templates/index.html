@@ -4,10 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Gestor de Tarefas</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Bootwatch estilo (SKETCHY) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- Folha de estilo (main.css) -->
+    <link rel = "stylesheet" href="{{ url_for ("static", filename = "main.css")}}">
 </head>
 <body>
-    <main>
-        <h1>Estou em index</h1>
+    <main class="container p-4">
+        <h1 class="display-4 text-center mt-4 titulo">APP de Gestão de Tarefas</h1>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <form action="/criar-tarefa" method="post">
+                            <div class="form-group">
+                                <input type="text" name="conteudo_tarefa" placeholder="Tarefa" class="form-control" autofocus>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Guardar
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                            <ul>
+                                {% for tarefa in lista_de_tarefas %}
+                                <li>
+                                    {{tarefa.conteudo}}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     
 </body>
