@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -28,7 +28,21 @@ def criar():
     tarefa = Tarefa(conteudo=conteudo_tarefa, feita=False)
     db.session.add(tarefa)
     db.session.commit()
-    return "Tarefa guardada"
+    return redirect(url_for("home"))
+
+@app.route("/eliminar-tarefa/<id>")
+def eliminar(id):
+    tarefa = Tarefa.query.get(int(id))
+    db.session.delete(tarefa)
+    db.session.commit()
+    return redirect(url_for("home"))
+
+@app.route("/tarefa-feita/<id>")
+def feita(id):
+    tarefa = Tarefa.query.filter_by(id = int(id)).first()
+    tarefa.feita = not tarefa.feita
+    db.session.commit()
+    return redirect(url_for("home"))
 
 
 
